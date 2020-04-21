@@ -7,6 +7,7 @@ class BasemapSelector extends Component {
 
     return (
       <Radio.Group onChange={onChange} value={basemap}>
+        <Radio value={"Custom"}>Custom</Radio>
         <Radio value={"ESRI"}>ESRI</Radio>
         <Radio value={"OTM"}>Topographic</Radio>
         <Radio value={"OSM"}>OpenStreetMap</Radio>

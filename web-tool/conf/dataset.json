@@ -12,14 +12,13 @@
   },
   "basemapLayer": {
     "initialZoom": 11,
-    "url": "tiles/hkh/{z}/{x}/{y}.png",
+    "url": "data/tiles/hkh/{z}/{x}/{-y}.png",
     "initialLocation": [
       34.0322,
       78.165
     ],
     "args": {
       "attribution": "Georeferenced Image",
-      "tms": true,
       "maxNativeZoom": 13,
       "maxZoom": 14,
       "minZoom": 8

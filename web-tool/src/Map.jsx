@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 import dataset from '../conf/dataset.json';
-
-const layerUrls = {
-  "ESRI": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-  "OTM": "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
-  "OSM": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-}
-
+import layerInfo from '../conf/layerInfo.json';
+layerInfo["Custom"]["url"] = dataset.basemapLayer.url;
+layerInfo["Custom"]["args"] = dataset.basemapLayer.args;
 
 class MapDisplay extends Component {
   constructor(props) {
@@ -19,12 +15,16 @@ class MapDisplay extends Component {
   };
 
   render() {
-    const { basemap } = this.props;
+    const { basemap } = this.props,
+          info = layerInfo[basemap];
+
     return (
-      <Map center={this.state.center} crs={L.CRS.EPSG3857} zoom={this.state.zoom} style={{height : '400px'}}>
+      <Map center={this.state.center} crs={L.CRS.EPSG3857} zoom={this.state.zoom} style={{height: "450px"}}>
         <TileLayer
-          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url={layerUrls[basemap]}
+          attribution={info.args.attribution}
+          url={info.url}
+          maxZoom={info.args.maxZoom}
+          minZoom={info.args.minZoom}
           />
       </Map>
     );
@@ -32,5 +32,3 @@ class MapDisplay extends Component {
 }
 
 export default MapDisplay;
-
-// url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
