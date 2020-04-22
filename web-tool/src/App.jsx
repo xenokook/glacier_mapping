@@ -8,11 +8,10 @@ import 'leaflet/dist/leaflet.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {basemap: "ESRI"};
+    this.state = {basemap: "ESRI", keyPressed: false};
     this.handleBasemapChange = this.handleBasemapChange.bind(this);
     this.handleKeypress = this.handleKeypress.bind(this);
     this.handleKeyup = this.handleKeyup.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount(){
@@ -21,10 +20,7 @@ class App extends Component {
   }
 
   handleBasemapChange(event) {
-    this.setState({
-      basemap: event.target.value,
-      keyPressed: false
-    });
+    this.setState({basemap: event.target.value});
   }
 
   handleKeypress(event) {
@@ -37,17 +33,12 @@ class App extends Component {
     this.setState({keyPressed: false});
   }
 
-  handleClick(event) {
-    if (this.state.keyPressed) {
-      // do inference
-    }
-  }
 
   render() {
     return (
       <div>
-        <div className="Map" onClick={this.handleClick}>
-          <MapDisplay basemap={this.state.basemap}/>
+        <div className="Map" onKeyPress={this.handleKeypress} onKeyUp={this.handleKeyup}>
+          <MapDisplay basemap={this.state.basemap} keyPressed={this.state.keyPressed}/>
         </div>
         <div className="Select">
           <BasemapSelector basemap={this.state.basemap} onChange={this.handleBasemapChange}/>
